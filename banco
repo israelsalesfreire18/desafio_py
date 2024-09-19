@@ -1,0 +1,67 @@
+menu = """"
+
+[1] DEPOSITAR
+[2] SACAR
+[3] EXTRATO
+[4] SAIR
+
+=> """
+
+saldo = 0 
+limite = 500
+extrato = ""
+numeros_saques = 0
+LIMITE_SAQUES = 3
+
+while True:
+    
+    opcao = input(menu)
+    
+    if opcao == "1":
+        valor =  float(input('Valor a ser depositado:'))
+        
+        if valor > 0:
+            saldo += valor
+            extrato += f"Depósito foi: R$ {valor:.2f}\n"
+        
+        else:
+            print("Operação falhou o valor informado é invalido.")
+    
+    
+    elif opcao == "2":
+        valor = float(input("Deseja sacar qual valor:"))
+        
+        excedeu_saldo = valor > saldo
+        
+        excedeu_limite = valor > limite
+        
+        excedeu_saques = numeros_saques >= LIMITE_SAQUES
+        
+        if excedeu_saldo:
+            print("Operação falhou! Saldo é suficiente")
+        
+        elif excedeu_limite:
+            print("Operação falhou! Limite  é excedido")
+        
+        elif excedeu_saques:
+            print("Operação falhou! Limite maximo de saques excedido")
+            
+        elif valor > 0:
+            saldo -= valor 
+            extrato += f"Saque: R$ {valor:.2f}\n"
+            numeros_saques += 1
+        
+        else:
+            print("Operação falhou o valor informado é invalido.")            
+    
+    elif opcao == "3":
+        print('\n########### Extrato ##########')
+        print('Não tem movimentações na conta' if not extrato else extrato)
+        print(f"\n Saldo da usa conta é: R$ {saldo:.2f}")
+        print('\n##############################')
+    
+    elif opcao == "4":
+        break
+    
+    else:
+        print("Operação invalida, por favor selecionar a opraçao desejada.")       
